@@ -9,8 +9,10 @@ def get_locations(name=''):
                       access_token_secret=tokens['ACCESS_TOKEN_SECRET'])
 
     users = api.GetFriends(screen_name=name)
-    return [(u.location, u.screen_name) for u in users]
+    user = api.GetUser(screen_name=name)
+    print(user)
+    return [(u.location, u.screen_name) for u in users], user.location
 
 
 if __name__ == "__main__":
-    locs = get_locations(name = 'androy777')
+    locs = get_locations(name = 'jb_ravenborn')

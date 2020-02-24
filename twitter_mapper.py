@@ -50,15 +50,21 @@ def processing(geopy_object: object, user_info: list):
     return revise_users(users)
 
 
-def create_map(coordinates: list):
+def create_map(coordinates: list, my_loc: tuple):
     """ list -> None
 
-    Creates a folium lib map.
+    Creates a folium lib map centered on your location.
     On the map are markers of all users in your coordinates list.
 
     The map is then saved in index.html in your working directory.
     """
-    world = fl.Map()
+    if my_loc is not None:
+        location = (my_loc.latitude, my_loc.longitude)
+        zoom = 6
+    else:
+        location = (0, 0)
+        zoom = 3
+    world = fl.Map(location=location, zoom_start=zoom)
 
     for follower in coordinates:
         fl.Marker(
@@ -70,11 +76,15 @@ def create_map(coordinates: list):
     return world._repr_html_()
 
 
-def user_analysis(username):
+def user_analysis(username: str):
+    """ str -> object
+
+    Returns a folium.Map based on a twitter username.
+    """
     geolocator = Nominatim(user_agent='twitter_locations')
-    follower_info = locations.get_locations(name=username)
+    follower_info, my_loc = locations.get_locations(name=username)
     coordinates = processing(geolocator, follower_info)
-    return create_map(coordinates)
+    return create_map(coordinates, do_geocode(geolocator, my_loc))
 
 
 if __name__ == "__main__":
