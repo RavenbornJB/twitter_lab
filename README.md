@@ -10,6 +10,10 @@ There is a **Task2** directory in this repository, it contains a program for the
  - locations.py
  - not_hidden.py
 
-are all a part of Task 3.
+and, similarly:
+ - templates
+ - static
+
+directories are all a part of Task 3.
 
 *flask_app.py* is the main file, run it if you ever need to.

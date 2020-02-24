@@ -9,11 +9,12 @@ app = Flask(__name__)
 def login():
     if request.method == 'POST':
         user = request.form['username']
-        if not user:
+        try:
+            return user_analysis(user)
+        except:
             return redirect(url_for('login'))
-        return user_analysis(user)
     return render_template('login.html')
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run()

@@ -10,7 +10,6 @@ def get_locations(name=''):
 
     users = api.GetFriends(screen_name=name)
     user = api.GetUser(screen_name=name)
-    print(user)
     return [(u.location, u.screen_name) for u in users], user.location
 
 
