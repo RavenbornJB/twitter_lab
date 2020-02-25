@@ -2,6 +2,18 @@
 import json
 
 
+types = {
+    "<class 'dict'>": 'object',
+    "<class 'list'>": 'array',
+    "<class 'tuple'>": 'array',
+    "<class 'str'>": 'string',
+    "<class 'int'>": 'number',
+    "<class 'float'>": 'number',
+    "<class 'bool'>": 'bool',
+    "<class 'NoneType'>": 'null'
+}
+
+
 def navigate(jsn: object, depth: int = 0):
     """ object, int -> None
 
@@ -23,7 +35,8 @@ This is a JSON object. This object has these attributes:
 , or 'Back' to go back a level)
 """)
             for key in jsn.keys():
-                print(key)
+                obj = types[repr(type(jsn[key]))]
+                print('  -->  '.join([key, obj]))
             ipt = input('\nAttribute: ')
             if ipt == 'Back':
                 break
